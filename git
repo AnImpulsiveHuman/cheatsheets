@@ -1,0 +1,125 @@
+Git Cheatsheet:
+==============
+
+Telling Git who you are:
+-----------------------
+git config user.email <email>               -> give your git email
+git config user.name <username>             -> give your git username
+git config --global credential.helper store	-> store username and pass
+
+Git Remotes
+-----------
+git remote add <remote's unique name>   	  -> adds a new remote
+git remote -v 								              -> lists all the remotes
+git remote rm <remote name>					        -> removes a remote
+
+Git Basics
+----------
+git init 									                  -> creates a new git repo
+git status									                -> lists all staged, unstaged, untracked files
+git add <file name>/<directory name>		    -> adds file/directory to staging area
+git commit -m "<commit message>"			      -> commits the file(s) in staging area to our local repo
+
+git push <remote name> <branch name>		    -> pushes the commited file to remote repo
+git pull									                  -> does fetch + merge
+
+git fetch									                  -> downloads the changes from the remote repository into a separate branch
+git fetch -all								              -> fetches all the branches
+
+Git merge and rebase
+--------------------
+git merge <source branch> <targetbranch>	  -> merges source branch to target branch
+git merge --continue 						            -> continue merge after resolving the conflict and moving to staging area
+git rebase <source branch> <target branch>	-> rebases source branch to target branch
+
+NOTE: Never rebase on a public branch.
+
+Git branch
+----------
+git branch 									                -> lists all the branches in the repo
+git branch -a 								              -> also lists remote branches
+git branch --no-merged						          -> lists all the branches that have not been merged to our current head branch
+git branch <new branch name>				        -> creates a new branch
+git branch -d <branch name>					        -> deletes the specified branch
+
+Git checkout
+------------
+git checkout <branch name>					        -> switch to the specified branch
+git checkout -b <new branch name>			      -> creates a new branch and switches to it
+git checkout --ours <file name>				      -> use the local version of the file during merge conflict
+git checkout --theirs <filename>			      -> use the remote version of the file during merge conflict
+
+Git reset and revert
+--------------------
+git reset HEAD <file name>					        -> removes the file(s) from staging area
+git reset --<mode> <commit id>              -> resets current branch's HEAD to the specified commidt (modes= soft, hard, 												   mixed, merge, keep). Remove the commit from the history 
+git revert <commitd id>						          -> undoes by creating a new commit to undo instead of removing the commit from 												   history
+git revert HEAD...HEAD~n 					          -> revert the commits between HEAD - n(n=1,2,3...) and HEAD 
+
+Git log
+-------
+git log										                  -> shows all the commits in the repo (additonal flags can be used)
+git log --oneline							              -> shows one commit per line
+git log --stat 								              -> shows the files modified along with the lines modified
+git log --patch 	 						              -> shows the files modified along with the specific changes made
+git log --graph								              -> shows the logs in a graph/tree like format
+git log --after="date"						          -> shows the logs after that date (can also give "number of days" like "21 days 											   ago" instead of date)
+git log --before="date"						          -> shows the logs before that date
+git log --until="date" 						          -> shows logs till date (can also give "number of days" like "1 day ago" instead 												of date)
+
+NOTE: --before and --after can be combined
+
+Git diff
+--------
+git diff									                  -> shows changes in unstaged files (in working directory) and staged files
+git diff --staged							              -> shows changes in staged files and commited files
+git diff <commit hash1> <commit hash2>		  -> shows changes in the two commits
+git diff <branch 1> <branch 2>				      -> shows changes in two branches 
+
+Git bisect
+----------
+git bisect start							              -> enter bisect mode
+git bisect bad								              -> mark the current commit as bad
+git bisect good HEAD~n 						          -> set the last known good commit (n=1,2,3...)
+git bisect good						              		-> mark the current commit as good
+
+Git blame
+---------
+git blame <file name>						            -> tells who worked on each section of the file
+
+Git cherry-pick
+---------------
+git cherry-pick <commit id>/<ref> 			    -> merge that specific commit
+git cherry-pick --continue					        -> continue cherry-pick after resolving conflict and moving to staging area
+
+rebase --interactive commands:
+-----------------------------
+pick
+rewrite
+squash
+edit
+fixup
+exec
+drop
+
+Rewrite history
+---------------
+git rebase --interactive --root 			      -> rewrite all commits from the first (using rewrite)
+git commit --amend 							            -> rewrite the last commit message
+                                                                                      
+Squashing commits                                                                                               
+-----------------                                                                                           
+Example of squashing 5 commits into 1                                                                       
+
+* git rebase --interactive HEAD~5                                                                             
+* change all the commands to "squash". leave one of the commands as "pick" as we need a base to squash into
+* save the commit messages                                                                                        
+                                                          
+Splitting commits                                                 
+-----------------
+                                                          
+* git rebase --interactive HEAD~2 			    (HEAD~2 is the commit to be splitted)
+* change the command to "edit"				      (this is will make the commit editable)
+* git reset HEAD^ 							            (remove that commit)
+* Stage and commit different files			    (having multiple commits instead of the one we removed)
+* git rebase --continue 					          (continue rebase) 	
