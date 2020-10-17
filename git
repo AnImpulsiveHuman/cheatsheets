@@ -3,8 +3,8 @@ Git Cheatsheet:
 
 Telling Git who you are:
 -----------------------
-git config user.email <email>
-git config user.name <username>
+git config user.email <email>				-> give your github email
+git config user.name <username>				-> give your github username
 git config --global credential.helper store	-> store username and pass
 
 Git Remotes
