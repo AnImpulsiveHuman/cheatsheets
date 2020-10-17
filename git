@@ -52,8 +52,8 @@ git checkout --theirs <filename>			-> use the remote version of the file during 
 Git reset and revert
 --------------------
 git reset HEAD <file name>					-> removes the file(s) from staging area
-git reset --<mode> <commit id>              -> resets current branch's HEAD to the specified commidt (modes= soft, hard, 												   mixed, merge, keep). Remove the commit from the history 
-git revert <commitd id>						-> undoes by creating a new commit to undo instead of removing the commit from 												   history
+git reset --<mode> <commit id>              -> resets current branch's HEAD to the specified commidt (modes= soft, hard, mixed, merge, keep). Remove the commit from the history 
+git revert <commitd id>						-> undoes by creating a new commit to undo instead of removing the commit from history
 git revert HEAD...HEAD~n 					-> revert the commits between HEAD - n(n=1,2,3...) and HEAD 
 
 Git log
@@ -63,9 +63,9 @@ git log --oneline							-> shows one commit per line
 git log --stat 								-> shows the files modified along with the lines modified
 git log --patch 	 						-> shows the files modified along with the specific changes made
 git log --graph								-> shows the logs in a graph/tree like format
-git log --after="date"						-> shows the logs after that date (can also give "number of days" like "21 days 											   ago" instead of date)
+git log --after="date"						-> shows the logs after that date (can also give "number of days" like "21 days ago" instead of date)
 git log --before="date"						-> shows the logs before that date
-git log --until="date" 						-> shows logs till date (can also give "number of days" like "1 day ago" instead 												of date)
+git log --until="date" 						-> shows logs till date (can also give "number of days" like "1 day ago" instead of date)
 
 NOTE: --before and --after can be combined
 
