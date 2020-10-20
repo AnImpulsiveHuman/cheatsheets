@@ -1,5 +1,4 @@
 # __Docker__
-This does not contain all the commands and the options available. Just those which I felt might come handy.
 ### Dockerfile commands
 ```
 FROM <image name>                      -> defines the base image
