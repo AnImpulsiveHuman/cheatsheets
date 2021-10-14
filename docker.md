@@ -109,6 +109,54 @@ docker ps -q   -> lists the container id
 docker build -t <image name> .  -> builds the image from Dockerfile with the specified image name
 docker build <url>              -> builds the image from the url
 ```
+### Data Volumes
+```
+docker volume create <volume name>                                              -> creates a volume that can be used by containers
+
+options:
+........
+--driver , -d                                                                   -> specify the volume driver name
+--label                                                                         -> set a label(metadata) for a volume
+--opt , -o                                                                      -> set driver specific options
+
+docker volume ls                                                                -> lists the existing volumes
+
+options:
+........
+--filter , -f                                                                   -> filter the results (e.g. 'dangling=true')
+--format {{<placeholder>}}                                                      -> pretty-print volumes using a Go template
+--quiet , -q                                                                    -> display only the volume names
+
+docker volume inspect <volume name>                                             -> gives details about the specified volume
+
+options:
+........
+--format {{<placeholder>}}                                                      -> pretty-print volumes using a Go template
+
+docker volume rm <volume name>                                                  -> deletes the specified volume
+
+options:
+........
+--force , -f                                                                    -> force delete without confirmation
+
+docker volume prune                                                             -> deletes all unused volumes
+
+options:
+........
+--format {{<placeholder>}}                                                      -> pretty-print volumes using a Go template
+--force , -f                                                                    -> force delete without confirmation
+
+docker run -v <host directory>:<container directory> --name <container name>    -> creates a volume (binds host and
+-d <base image>                                                                    container directory) i.e data stored on
+                                                                                   container directory presists on host directory
+docker run -v <host directory>:<container directory>:ro --name <container name> -> creates a volume with "read-only" permission
+```
+### Shared Volumes
+```
+docker run --volumes-from <data container/volume name> <container name>         -> makes the data container/volume
+                                                                                   accessible to the launched container
+```
+
 ### Data Containers
 ```
 docker create -v <volume directory> --name <data container name> <base image name> -> creates a data container with specified
@@ -117,18 +165,6 @@ docker create -v <volume directory> --name <data container name> <base image nam
 docker export <data container name> > <any name>.tar                               -> to export the data container
 
 docker import <any name>.tar                                                       -> to import the .tar data container
-```
-### Data volumes
-```
-docker run -v <host directory>:<container directory> --name <container name>    -> creates a data volume (binds host and
--d <base image>                                                                    container directory) i.e data stored on
-                                                                                   container directory presists on host directory
-docker run -v <host directory>:<container directory>:ro --name <container name> -> creates a data volume with "read-only" permission
-```
-### Shared Volumes
-```
-docker run --volumes-from <data container/volume name> <container name>         -> makes the data container/volume
-                                                                                   accessible to the launched container
 ```
 ### Container Networks:
 ```
